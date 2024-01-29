@@ -53,3 +53,19 @@ func FailWithMessage(message string, c *gin.Context) {
 func FailWithDetailed(data interface{}, message string, c *gin.Context) {
 	Result(ERROR, data, message, c)
 }
+
+// gin context 的 response 輸出格式(回傳成功)
+func ResponseSuccess(statusCode int, result any, c *gin.Context) {
+	c.JSON(statusCode, gin.H{
+		"status": "success",
+		"result": result,
+	})
+}
+
+// gin context 的 response 輸出格式(回傳失敗)
+func ResponseFail(statusCode int, reason any, c *gin.Context) {
+	c.JSON(statusCode, gin.H{
+		"status": "fail",
+		"reason": reason,
+	})
+}
