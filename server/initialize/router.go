@@ -1,8 +1,9 @@
 package initialize
 
 import (
-	swaggerFiles "github.com/swaggo/files"
 	"net/http"
+
+	swaggerFiles "github.com/swaggo/files"
 
 	"github.com/flipped-aurora/gin-vue-admin/server/docs"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
@@ -30,6 +31,7 @@ func Routers() *gin.Engine {
 	InstallPlugin(Router) // 安装插件
 	systemRouter := router.RouterGroupApp.System
 	exampleRouter := router.RouterGroupApp.Example
+	revenueBookingRouter := router.RouterGroupApp.RevenueBooking
 	// 如果想要不使用nginx代理前端网页，可以修改 web/.env.production 下的
 	// VUE_APP_BASE_API = /
 	// VUE_APP_BASE_PATH = http://localhost
@@ -59,6 +61,8 @@ func Routers() *gin.Engine {
 	{
 		systemRouter.InitBaseRouter(PublicGroup) // 注册基础功能路由 不做鉴权
 		systemRouter.InitInitRouter(PublicGroup) // 自动初始化相关
+
+		revenueBookingRouter.InitRevenueBookingApiRouter(PublicGroup) // 注册revenue_booking相关路由
 	}
 	PrivateGroup := Router.Group(global.GVA_CONFIG.System.RouterPrefix)
 	PrivateGroup.Use(middleware.JWTAuth()).Use(middleware.CasbinHandler())

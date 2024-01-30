@@ -8,7 +8,7 @@ import (
 
 type RevenueBookingApiRouter struct{}
 
-func (r *RevenueBookingApiRouter) InitRevenueBookingApi(Router *gin.RouterGroup) {
+func (r *RevenueBookingApiRouter) InitRevenueBookingApiRouter(Router *gin.RouterGroup) {
 	RevenueBookingRouterGroup := Router.Group("revenueBooking")
 	api := v1.ApiGroupApp.RevenueBookingApiGroup.RevenueBookingApi
 	{

@@ -5,7 +5,7 @@ import "github.com/flipped-aurora/gin-vue-admin/server/global"
 // ======================================================== DB Model ========================================================
 
 type ParseHtmlAndSetHotelsInfoToDB struct {
-	global.GAS_MODEL
+	global.GVA_MODEL
 	Platform      string `json:"platform"`
 	City          string `json:"city"`
 	Name          string `gorm:"uniqueIndex:idx_name_location" json:"name"`

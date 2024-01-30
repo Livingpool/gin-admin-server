@@ -8,6 +8,11 @@ import (
 	"math/rand"
 	"net/http"
 	"time"
+
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/revenue_booking"
+
+	"gorm.io/gorm/clause"
 )
 
 type RevenueBookingApiService struct{}
@@ -126,4 +131,10 @@ func (r *RevenueBookingApiService) DoRequestAndGetResponseWithRetry(method, post
 	}
 
 	return fmt.Errorf("=== max retries exceeded ===")
+}
+
+// 存飯店(爬蟲)資料入DB
+func (r *RevenueBookingApiService) SaveHotelsRecord(records *[]revenue_booking.ParseHtmlAndSetHotelsInfoToDB) error {
+	batchSize := 100
+	return global.GVA_DB.Clauses(clause.OnConflict{UpdateAll: true}).CreateInBatches(records, batchSize).Error
 }
